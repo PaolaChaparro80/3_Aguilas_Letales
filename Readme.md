@@ -3,3 +3,4 @@
 <p>En la industria de la tecnolog�a, el rol de game writer, desarrolla la historia, dialogos y narrativa del juego/p> 
 <p>Cead medellin.</p> 
 <p>Soy una persona creativa egresada de tecnologia en produccion multimedia del SENA, estudiante de 6 semestre de ingenieria multimedia en la UNAD, he visto asignaturas donde he creado el dise�o sonoro para videojuegos y un prototipo de historia o narrativa del mismo.</p> 
+<p>Comoida favorita es la pizza.</p> 
