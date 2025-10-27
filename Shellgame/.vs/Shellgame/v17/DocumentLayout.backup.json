@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ASUS\\Shellgame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Shellgame\\assets\\scripts\\boxselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boxselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|c:\\users\\asus\\shellgame\\assets\\scripts\\shellgamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\shellgamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|c:\\users\\asus\\shellgame\\assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Shellgame\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CoinData.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\CoinData.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\CoinData.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\CoinData.cs",
+              "RelativeToolTip": "Assets\\scripts\\CoinData.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T21:05:06.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BoxSelector.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\BoxSelector.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\BoxSelector.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\BoxSelector.cs",
+              "RelativeToolTip": "Assets\\scripts\\BoxSelector.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T11:56:22.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ShellGameManager.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\ShellGameManager.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
+              "RelativeToolTip": "Assets\\scripts\\ShellGameManager.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAQwI4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T11:55:30.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Shellgame\\Assets\\scripts\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\scripts\\PlayerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T13:12:44.338Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
