@@ -1,65 +1,194 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class ShellGameManager : MonoBehaviour
 {
     [Header("Cajas")]
-    public List<Transform> boxes;  // Las cajas del juego
+    public List<Transform> boxes;
 
-    [Header("Monedas")]
-    public List<GameObject> coins; // Todas las monedas (10)
+    [Header("Monedas (10)")]
+    public List<GameObject> coins;
 
-    [Header("Configuración de Shuffle")]
+    [Header("Shuffle Settings")]
     public float shuffleSpeed = 3f;
     public int shuffleCount = 5;
+
+    [Header("Intentos")]
+    public int maxAttempts = 3;
+    private int attemptsLeft;
+
+    [Header("Jugador")]
+    public Transform player;
+    private Vector3 playerStartPos;
+    private Quaternion playerStartRot;
+    private Rigidbody playerRb;
 
     [Header("Sonidos")]
     public AudioClip winSound;
     public AudioClip loseSound;
     private AudioSource audioSource;
 
+    [Header("UI")]
+    public TMPro.TextMeshProUGUI resultText;
+    public TMPro.TextMeshProUGUI scoreText;
+    public TMPro.TextMeshProUGUI hintText;
+
+    [Header("Botones Opciones")]
+    public GameObject btnContinue;
+    public GameObject btnRestart;
+    public GameObject btnExit;
+
     private bool canSelect = false;
-    private int winningBoxIndex;  // Índice de la caja ganadora
+    private int winningBoxIndex;
+    private int score = 0;
+    private int totalWins = 0;
+
+    void Awake()
+    {
+        if (player != null)
+        {
+            playerStartPos = player.position;
+            playerStartRot = player.rotation;
+            playerRb = player.GetComponent<Rigidbody>();
+        }
+    }
 
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        UpdateScoreUI();
         StartCoroutine(StartGame());
     }
 
-    void AssignCoinsToBoxes()
-    {
-        // Seleccionar la caja ganadora de forma aleatoria
-        winningBoxIndex = Random.Range(0, boxes.Count); // Índice de la caja ganadora
-        Transform targetBox = boxes[winningBoxIndex];
-
-        // Asegurarse de que las monedas estén activas antes de comenzar el juego
-        foreach (GameObject coin in coins)
-        {
-            coin.SetActive(true);  // Activar las monedas
-
-            coin.transform.SetParent(targetBox);
-            coin.transform.localPosition = Vector3.zero; // Colocar las monedas en el centro de la caja
-
-            // Agregar Rigidbody y Collider si no existen
-            if (coin.GetComponent<Rigidbody>() == null)
-                coin.AddComponent<Rigidbody>().isKinematic = true;
-
-            if (coin.GetComponent<Collider>() == null)
-                coin.AddComponent<SphereCollider>();
-        }
-
-        Debug.Log("Las monedas han sido asignadas a las cajas.");
-    }
-
+    // -------------------------------------------------------------
+    // INICIO DEL JUEGO / RONDA COMPLETA
+    // -------------------------------------------------------------
     IEnumerator StartGame()
     {
-        AssignCoinsToBoxes(); // Asignar las monedas antes de la mezcla
-        yield return new WaitForSeconds(1f);  // Esperar antes de comenzar la mezcla
-        yield return StartCoroutine(ShuffleBoxes());  // Comienza la mezcla
+        HideOptions();
+        ClearResultUI();
+        canSelect = false;
+        attemptsLeft = maxAttempts;
+
+        // ✅ Primero devuelve al jugador al inicio
+        yield return StartCoroutine(ResetPlayerSmooth());
+
+        winningBoxIndex = Random.Range(0, boxes.Count);
+        Transform targetBox = boxes[winningBoxIndex];
+
+        yield return StartCoroutine(AnimateCoinsToBox(targetBox));
+        yield return StartCoroutine(RevealCoins(2f));
+        SetCoinsVisible(false);
+        yield return StartCoroutine(ShuffleBoxes());
+
         canSelect = true;
-        Debug.Log("¡Elige una caja!");
+        ShowHint($"Intentos: {attemptsLeft}. Elige una caja...");
+    }
+
+    // ✅ FUNCIÓN PARA REINICIAR POSICIÓN DEL JUGADOR SIN ATRAVESAR
+    IEnumerator ResetPlayerSmooth()
+    {
+        Collider col = player.GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+
+        if (playerRb != null)
+        {
+            playerRb.velocity = Vector3.zero;
+            playerRb.angularVelocity = Vector3.zero;
+            playerRb.MovePosition(playerStartPos);
+            playerRb.MoveRotation(playerStartRot);
+        }
+        else
+        {
+            player.position = playerStartPos;
+            player.rotation = playerStartRot;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        if (col != null) col.enabled = true;
+    }
+
+    // -------------------------------------------------------------
+    // ANIMACIÓN DE MONEDAS
+    // -------------------------------------------------------------
+    IEnumerator AnimateCoinsToBox(Transform target)
+    {
+        foreach (GameObject coin in coins)
+        {
+            coin.SetActive(true);
+            coin.transform.position = new Vector3(Random.Range(-2f, 2f), Random.Range(2f, 4f), Random.Range(-2f, 2f));
+            coin.transform.rotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+        }
+
+        float duration = 1.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            foreach (GameObject coin in coins)
+            {
+                Vector3 targetPos = target.position + Vector3.up * 0.8f;
+                coin.transform.position = Vector3.Lerp(coin.transform.position, targetPos, t);
+                coin.transform.Rotate(Vector3.up * 360f * Time.deltaTime);
+            }
+
+            yield return null;
+        }
+
+        ArrangeCoinsOnBox(target);
+    }
+
+    void ArrangeCoinsOnBox(Transform target)
+    {
+        float baseY = 0.95f;
+        int gridCols = 4;
+        float gridStep = 0.16f;
+        float jitterXY = 0.06f;
+
+        for (int i = 0; i < coins.Count; i++)
+        {
+            GameObject coin = coins[i];
+            coin.transform.SetParent(target);
+
+            int row = i / gridCols;
+            int col = i % gridCols;
+
+            Vector3 offsetGrid = new Vector3((col - (gridCols - 1) * 0.5f) * gridStep, 0f, (row - 1) * gridStep);
+            Vector3 jitter = new Vector3(Random.Range(-jitterXY, jitterXY), Random.Range(0f, 0.03f), Random.Range(-jitterXY, jitterXY));
+
+            coin.transform.localPosition = new Vector3(0, baseY, 0) + offsetGrid + jitter;
+            coin.transform.localRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
+            Rigidbody rb = coin.GetComponent<Rigidbody>();
+            if (rb == null) rb = coin.AddComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.useGravity = false;
+
+            Collider colliderComponent = coin.GetComponent<Collider>();
+            if (colliderComponent == null) colliderComponent = coin.AddComponent<SphereCollider>();
+            colliderComponent.isTrigger = false;
+        }
+    }
+
+    IEnumerator RevealCoins(float revealTime)
+    {
+        SetCoinsVisible(true);
+        ShowHint("Observa dónde están las monedas...");
+        yield return new WaitForSeconds(revealTime);
+        ClearResultUI();
+    }
+
+    void SetCoinsVisible(bool visible)
+    {
+        foreach (GameObject coin in coins)
+        {
+            coin.SetActive(visible);
+        }
     }
 
     IEnumerator ShuffleBoxes()
@@ -70,104 +199,148 @@ public class ShellGameManager : MonoBehaviour
             int b = Random.Range(0, boxes.Count);
             while (b == a) b = Random.Range(0, boxes.Count);
 
-            Vector3 posA = boxes[a].position;
-            Vector3 posB = boxes[b].position;
+            Transform boxA = boxes[a];
+            Transform boxB = boxes[b];
+
+            Vector3 posA = boxA.position;
+            Vector3 posB = boxB.position;
 
             float t = 0f;
             while (t < 1f)
             {
                 t += Time.deltaTime * shuffleSpeed;
-                boxes[a].position = Vector3.Lerp(posA, posB, t);
-                boxes[b].position = Vector3.Lerp(posB, posA, t);
+                boxA.position = Vector3.Lerp(posA, posB, t);
+                boxB.position = Vector3.Lerp(posB, posA, t);
                 yield return null;
             }
 
-            // Intercambiar las cajas (referencias)
             (boxes[a], boxes[b]) = (boxes[b], boxes[a]);
-            yield return new WaitForSeconds(0.5f);  // Esperar entre mezclas
+
+            if (winningBoxIndex == a) winningBoxIndex = b;
+            else if (winningBoxIndex == b) winningBoxIndex = a;
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
+    // -------------------------------------------------------------
+    // SELECCIONAR CAJA
+    // -------------------------------------------------------------
     public void SelectBox(int index)
     {
         if (!canSelect) return;
         canSelect = false;
 
-        bool won = (index == winningBoxIndex);  // Verificar si el jugador seleccionó la caja ganadora
-
-        for (int i = 0; i < boxes.Count; i++)
-        {
-            foreach (Transform coin in boxes[i])
-            {
-                bool isSelected = (i == index);
-                coin.gameObject.SetActive(isSelected);  // Mostrar monedas solo si la caja es seleccionada
-
-                // Si la caja tiene monedas y es seleccionada, lanzarlas
-                if (isSelected && won)
-                {
-                    Rigidbody rb = coin.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.isKinematic = false;  // Activar física para lanzar
-                        Vector3 randomDir = new Vector3(
-                            Random.Range(-1f, 1f),
-                            Random.Range(1.5f, 2.5f),
-                            Random.Range(-1f, 1f)
-                        ).normalized;
-                        rb.AddForce(randomDir * Random.Range(3f, 6f), ForceMode.Impulse);
-                        rb.AddTorque(Random.insideUnitSphere * 5f, ForceMode.Impulse);
-                    }
-                }
-                else
-                {
-                    // Si no se ha ganado, desactivar las monedas de la caja no seleccionada
-                    coin.gameObject.SetActive(false);
-                }
-            }
-        }
-
-        // Reproducir sonido y mostrar el mensaje según el resultado
+        bool won = (index == winningBoxIndex);
         if (won)
         {
-            Debug.Log("🎉 ¡Ganaste! Las monedas vuelan 🎉");
-            if (winSound != null) audioSource.PlayOneShot(winSound);  // Reproducir sonido de victoria
+            totalWins++;
+            score += coins.Count;
+            UpdateScoreUI();
+            ShowResult(true);
+            ShowHint($"¡Ganaste! Aciertos totales: {totalWins}");
+            PlaySound(winSound);
+            ShowOptions(false);
         }
         else
         {
-            Debug.Log("❌ Caja vacía.");
-            if (loseSound != null) audioSource.PlayOneShot(loseSound);  // Reproducir sonido de derrota
+            attemptsLeft--;
+            if (attemptsLeft > 0)
+            {
+                ShowHint($"Fallaste. Intentos restantes: {attemptsLeft}. Presiona 'Continuar' para intentar de nuevo.");
+                ShowOptions(true);
+            }
+            else
+            {
+                ShowResult(false);
+                ShowHint($"Perdiste. Aciertos totales: {totalWins}");
+                PlaySound(loseSound);
+                ShowOptions(false);
+            }
         }
-
-        // Reiniciar el juego después de un breve momento
-        StartCoroutine(RestartGame());
     }
 
-    public IEnumerator RestartGame()
+    // -------------------------------------------------------------
+    // BOTONES
+    // -------------------------------------------------------------
+    public void OnContinueClicked()
     {
-        yield return new WaitForSeconds(2f);  // Esperar un momento antes de reiniciar el juego
+        HideOptions();
 
-        // Desactivar monedas y restablecer físicas
-        foreach (GameObject coin in coins)
+        if (attemptsLeft > 0 && !canSelect) // Falló y aún tiene intentos
         {
-            coin.SetActive(false);
-            Rigidbody rb = coin.GetComponent<Rigidbody>();
-            if (rb != null) rb.isKinematic = true;
+            StartCoroutine(ResetPlayerSmooth()); // Solo devuelve al inicio
+            canSelect = true;
+            ShowHint($"Intentos restantes: {attemptsLeft}. Elige una caja...");
         }
+        else // Ganó o terminó la ronda
+        {
+            StartCoroutine(StartGame()); // Nueva ronda completa
+        }
+    }
 
-        // Volver a asignar las monedas a las cajas antes de la próxima ronda
+    public void OnRestartClicked()
+    {
+        HideOptions();
+        totalWins = 0;
+        score = 0;
+        UpdateScoreUI();
         StartCoroutine(StartGame());
     }
+
+    public void OnExitClicked()
+    {
+        Debug.Log("Salir del juego...");
+        Application.Quit();
+    }
+
+    // -------------------------------------------------------------
+    // UI y utilidades
+    // -------------------------------------------------------------
+    void ShowOptions(bool canContinue)
+    {
+        if (btnContinue != null) btnContinue.SetActive(canContinue);
+        if (btnRestart != null) btnRestart.SetActive(true);
+        if (btnExit != null) btnExit.SetActive(true);
+    }
+
+    void HideOptions()
+    {
+        if (btnContinue != null) btnContinue.SetActive(false);
+        if (btnRestart != null) btnRestart.SetActive(false);
+        if (btnExit != null) btnExit.SetActive(false);
+    }
+
+    void ShowHint(string message)
+    {
+        if (hintText != null) hintText.text = message;
+    }
+
+    void ShowResult(bool won)
+    {
+        if (resultText != null)
+        {
+            resultText.text = won ? "¡Correcto!" : "Incorrecto";
+            resultText.color = won ? Color.green : Color.red;
+        }
+    }
+
+    void ClearResultUI()
+    {
+        if (resultText != null) resultText.text = "";
+        if (hintText != null) hintText.text = "";
+    }
+
+    void UpdateScoreUI()
+    {
+        if (scoreText != null) scoreText.text = $"Puntaje: {score}";
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
