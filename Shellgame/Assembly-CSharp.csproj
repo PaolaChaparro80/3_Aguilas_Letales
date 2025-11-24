@@ -61,6 +61,7 @@
     <Compile Include="Assets\TrueClouds\Scripts\CloudsReadonlyAttribute.cs" />
     <Compile Include="Assets\TrueClouds\ExampleScenes\Scenes\Sky\CloudsGenerator.cs" />
     <Compile Include="Assets\TrueClouds\Scripts\CloudCamera3D.cs" />
+    <Compile Include="Assets\scripts\MainMenuManager.cs" />
     <Compile Include="Assets\scripts\CoinData.cs" />
     <Compile Include="Assets\scripts\BoxSelector.cs" />
     <Compile Include="Assets\TrueClouds\Scripts\CloudPointLight.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Assets\TrueClouds\Scripts\CloudCamera.cs" />
     <Compile Include="Assets\TrueClouds\ExampleScenes\Scripts\FPS60.cs" />
     <Compile Include="Assets\scripts\ShellGameManager.cs" />
-    <Compile Include="Assets\scripts\MainMenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TrueClouds\Resources\Shaders\Depth.shader" />
