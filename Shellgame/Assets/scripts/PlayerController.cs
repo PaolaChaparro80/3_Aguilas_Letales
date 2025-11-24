@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;           // Asegura que no sea cinemático
+        rb.useGravity = true;             // Activa gravedad
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Evita atravesar objetos
     }
 
     void FixedUpdate()
@@ -16,8 +20,12 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(h, 0, v) * moveSpeed * Time.fixedDeltaTime;
+        // Movimiento en plano XZ
+        Vector3 movement = new Vector3(h, 0, v).normalized * moveSpeed * Time.fixedDeltaTime;
+
+        // Movimiento físico
         rb.MovePosition(rb.position + movement);
     }
 }
+
 

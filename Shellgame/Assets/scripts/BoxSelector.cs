@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 public class BoxSelector : MonoBehaviour
 {
-    public int index;
+    public int index; // Índice único para cada caja
     private ShellGameManager manager;
 
     void Start()
@@ -10,14 +11,13 @@ public class BoxSelector : MonoBehaviour
         manager = FindObjectOfType<ShellGameManager>();
     }
 
-    void OnTriggerEnter(Collider other)
+    // Usamos colisión física en lugar de trigger
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player") && manager != null)
+        if (collision.gameObject.CompareTag("Player") && manager != null)
         {
             manager.SelectBox(index);
         }
     }
 }
-
-
 
