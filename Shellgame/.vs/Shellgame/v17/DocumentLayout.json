@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|c:\\users\\asus\\documents\\github\\3_aguilas_letales\\shellgame\\assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\assets\\scripts\\mainmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,8 +11,20 @@
       "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\boxselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\assets\\scripts\\shellgamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\coindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|c:\\users\\asus\\documents\\github\\3_aguilas_letales\\shellgame\\assets\\scripts\\shellgamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\shellgamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\assets\\scripts\\mainmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC0F1227-CBC4-88C2-D104-C708A8CD4242}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +34,48 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "index.html.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs",
+              "RelativeDocumentMoniker": "Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs",
+              "RelativeToolTip": "Assets\\WebGLTemplates\\ResponsiveTemplate\\index.html.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T20:44:34.018Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainMenuManager.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\mainMenuManager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\mainMenuManager.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\mainMenuManager.cs",
+              "RelativeToolTip": "Assets\\scripts\\mainMenuManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T18:51:13.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ShellGameManager.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\ShellGameManager.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
+              "RelativeToolTip": "Assets\\scripts\\ShellGameManager.cs",
+              "ViewState": "AgIAAHMBAAAAAAAAAAAAAHgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T11:55:30.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CoinData.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\CoinData.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\CoinData.cs",
@@ -48,30 +89,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainMenuManager.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\mainMenuManager.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\mainMenuManager.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\mainMenuManager.cs",
-              "RelativeToolTip": "Assets\\scripts\\mainMenuManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T18:51:13.51Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ShellGameManager.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\ShellGameManager.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\ShellGameManager.cs",
-              "RelativeToolTip": "Assets\\scripts\\ShellGameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T11:55:30.841Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "BoxSelector.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\BoxSelector.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\BoxSelector.cs",
@@ -79,19 +96,21 @@
               "RelativeToolTip": "Assets\\scripts\\BoxSelector.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T11:56:22.564Z"
+              "WhenOpened": "2025-10-27T11:56:22.564Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\PlayerController.cs",
               "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\3_Aguilas_Letales\\Shellgame\\Assets\\scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\scripts\\PlayerController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T13:12:44.338Z"
+              "WhenOpened": "2025-10-27T13:12:44.338Z",
+              "EditorCaption": ""
             }
           ]
         }
