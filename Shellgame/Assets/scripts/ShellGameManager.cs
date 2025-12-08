@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -57,13 +56,25 @@ public class ShellGameManager : MonoBehaviour
 
     void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    // -------------------------------------------------------------
+    // Inicialización cuando se activa GamePanel
+    // -------------------------------------------------------------
+    public void InitializeGame()
+    {
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
         UpdateScoreUI();
+        StopAllCoroutines();
         StartCoroutine(StartGame());
     }
 
     // -------------------------------------------------------------
-    // INICIO DEL JUEGO / RONDA COMPLETA
+    // INICIO DEL JUEGO / RONDA COMPLETA (con engaño de caja)
     // -------------------------------------------------------------
     IEnumerator StartGame()
     {
@@ -72,38 +83,51 @@ public class ShellGameManager : MonoBehaviour
         canSelect = false;
         attemptsLeft = maxAttempts;
 
-        // ✅ Primero devuelve al jugador al inicio
+        // Primero devuelve al jugador al inicio
         yield return StartCoroutine(ResetPlayerSmooth());
 
-        winningBoxIndex = Random.Range(0, boxes.Count);
-        Transform targetBox = boxes[winningBoxIndex];
+        // Step 1: Elegir una caja aleatoria donde se mostrarán inicialmente las monedas
+        int initialBox = Random.Range(0, boxes.Count);
+        Transform initialTargetBox = boxes[initialBox];
 
-        yield return StartCoroutine(AnimateCoinsToBox(targetBox));
+        // Step 2: Animar monedas hacia esa caja “visible”
+        yield return StartCoroutine(AnimateCoinsToBox(initialTargetBox));
         yield return StartCoroutine(RevealCoins(2f));
         SetCoinsVisible(false);
+
+        // Step 3: Decidir la caja ganadora real (diferente de la inicial)
+        do
+        {
+            winningBoxIndex = Random.Range(0, boxes.Count);
+        } while (winningBoxIndex == initialBox);
+
+        // Step 4: Barajar las cajas
         yield return StartCoroutine(ShuffleBoxes());
 
         canSelect = true;
         ShowHint($"Intentos: {attemptsLeft}. Elige una caja...");
     }
 
-    // ✅ FUNCIÓN PARA REINICIAR POSICIÓN DEL JUGADOR SIN ATRAVESAR
+    // ✅ FUNCIÓN PARA REINICIAR POSICIÓN DEL JUGADOR
     IEnumerator ResetPlayerSmooth()
     {
-        Collider col = player.GetComponent<Collider>();
+        Collider col = player != null ? player.GetComponent<Collider>() : null;
         if (col != null) col.enabled = false;
 
-        if (playerRb != null)
+        if (player != null)
         {
-            playerRb.velocity = Vector3.zero;
-            playerRb.angularVelocity = Vector3.zero;
-            playerRb.MovePosition(playerStartPos);
-            playerRb.MoveRotation(playerStartRot);
-        }
-        else
-        {
-            player.position = playerStartPos;
-            player.rotation = playerStartRot;
+            if (playerRb != null)
+            {
+                playerRb.velocity = Vector3.zero;
+                playerRb.angularVelocity = Vector3.zero;
+                playerRb.MovePosition(playerStartPos);
+                playerRb.MoveRotation(playerStartRot);
+            }
+            else
+            {
+                player.position = playerStartPos;
+                player.rotation = playerStartRot;
+            }
         }
 
         yield return new WaitForSeconds(0.1f);
@@ -267,15 +291,16 @@ public class ShellGameManager : MonoBehaviour
     {
         HideOptions();
 
-        if (attemptsLeft > 0 && !canSelect) // Falló y aún tiene intentos
+        if (attemptsLeft > 0 && !canSelect)
         {
-            StartCoroutine(ResetPlayerSmooth()); // Solo devuelve al inicio
+            StartCoroutine(ResetPlayerSmooth());
             canSelect = true;
             ShowHint($"Intentos restantes: {attemptsLeft}. Elige una caja...");
         }
-        else // Ganó o terminó la ronda
+        else
         {
-            StartCoroutine(StartGame()); // Nueva ronda completa
+            StopAllCoroutines();
+            StartCoroutine(StartGame());
         }
     }
 
@@ -285,13 +310,17 @@ public class ShellGameManager : MonoBehaviour
         totalWins = 0;
         score = 0;
         UpdateScoreUI();
+        StopAllCoroutines();
         StartCoroutine(StartGame());
     }
 
     public void OnExitClicked()
     {
-        Debug.Log("Salir del juego...");
+#if UNITY_EDITOR
+        Debug.Log("Salir del juego (Editor)...");
+#else
         Application.Quit();
+#endif
     }
 
     // -------------------------------------------------------------
@@ -338,8 +367,9 @@ public class ShellGameManager : MonoBehaviour
 
     void PlaySound(AudioClip clip)
     {
-        if (clip != null && audioSource != null)
+        if (clip != null)
         {
+            if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.PlayOneShot(clip);
         }
     }

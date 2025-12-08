@@ -1,29 +1,50 @@
-
 using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public GameObject mainMenuCanvas; // Canvas de la portada
-    public GameObject gameCanvas;     // Canvas del juego (UI del ShellGame)
+    [Header("UI Panels (NO Canvas)")]
+    public GameObject mainMenuPanel;  // Panel de la portada (Jugar/Salir)
+    public GameObject gamePanel;      // Panel del juego (HUD, botones, etc.)
+
+    [Header("Game Manager")]
+    public ShellGameManager shellGameManager; // Referencia al manager del juego
 
     void Start()
     {
-        // Mostrar portada y ocultar el juego al inicio
-        if (mainMenuCanvas != null) mainMenuCanvas.SetActive(true);
-        if (gameCanvas != null) gameCanvas.SetActive(false);
+        // Al iniciar: mostrar menú y ocultar juego
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
+        if (gamePanel != null) gamePanel.SetActive(false);
     }
 
     public void OnPlayClicked()
     {
-        // Oculta portada y muestra el juego
-        if (mainMenuCanvas != null) mainMenuCanvas.SetActive(false);
-        if (gameCanvas != null) gameCanvas.SetActive(true);
+        Debug.Log("Desactivando MainMenuPanel...");
+
+        // Ocultar el panel del menú
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
+
+        // Activar el panel del juego
+        if (gamePanel != null) gamePanel.SetActive(true);
+
+        // Inicializar el juego manualmente
+        if (shellGameManager != null)
+        {
+            shellGameManager.InitializeGame();
+        }
+        else
+        {
+            Debug.LogError("ShellGameManager no está asignado en el Inspector!");
+        }
+
+        Debug.Log("Juego iniciado");
     }
 
     public void OnExitClicked()
     {
-        Application.Quit();
-        Debug.Log("Salir del juego...");
+#if UNITY_EDITOR
+        Debug.Log("Salir del juego (Editor)...");
+#else
+        Application.Quit(); // En WebGL no hace nada, pero en PC sí
+#endif
     }
 }
-
